@@ -2,7 +2,7 @@ import numpy as np
 from scipy import integrate
 
 # =================================================================
-# PARTIE 1 : solveur de Newton générique
+# I) Newton's solver
 # =================================================================
 
 def _integrate_piecewise(integrand, breakpoints, limit=200):
