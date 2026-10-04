@@ -1,5 +1,5 @@
 using JuMP, Ipopt
-
+ 
 function solve_mayer_free(; N::Int=500, eps_::Float64=1e-6,
                             warm_start::Union{Nothing,NamedTuple}=nothing)
 
