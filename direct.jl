@@ -22,14 +22,13 @@ function solve_mayer_free(; N::Int=500, eps_::Float64=1e-6,
         set_lower_bound(x3[k], eps_)
         set_lower_bound(x1[k], eps_)
         set_upper_bound(x1[k], 1 - eps_)
-#        @constraint(model, x1[k]^2 + x2[k]^2 <= 1.0)
     end
 
     if warm_start === nothing
-        set_start_value(x0, 0.0) # set_start_value(x0, 0.3)
+        set_start_value(x0, 0.0) 
         set_start_value(y0, 0.0)
         for k in 0:N
-            set_start_value(x1[k], 0.5 + 0 * k / N) #set_start_value(x1[k], 0.3 + 0.4 * k / N)
+            set_start_value(x1[k], 0.5 + 0 * k / N) 
             set_start_value(x2[k], 0.0)
             set_start_value(x3[k], 0.0)
             set_start_value(x4[k], 0.0)
