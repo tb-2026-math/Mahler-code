@@ -2,7 +2,7 @@ import numpy as np
 from scipy import integrate
 
 # =================================================================
-# PARTIE 1 : solveur de Newton générique
+# I) Newton solver
 # =================================================================
 
 def _integrate_piecewise(integrand, breakpoints, limit=200):
@@ -66,7 +66,7 @@ def body_area(h_func, dh_func, breakpoints):
 
 
 # =================================================================
-# PARTIE 2 : définition de h(t) — NOUVELLE FONCTION D'APPUI (5 morceaux)
+# II)  Definition of h(t) - the support function (five pieces)  
 # =================================================================
 
 t1 = 0.2499109628
