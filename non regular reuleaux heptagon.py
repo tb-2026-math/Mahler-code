@@ -95,7 +95,7 @@ pieces_full = pieces_half + [(a, b, 1.0 - c) for (a, b, c) in pieces_half]
 breakpoints_full = breakpoints_half + [pi + x for x in breakpoints_half[1:]]
 
 
-def _which_piece(t):
+def which_piece(t):
     tt = t % (2 * pi)
     for i in range(len(breakpoints_full) - 1):
         if breakpoints_full[i] - 1e-9 <= tt <= breakpoints_full[i + 1] + 1e-9:
@@ -104,13 +104,13 @@ def _which_piece(t):
 
 
 def h(t):
-    i = _which_piece(t)
+    i = which_piece(t)
     a, b, c = pieces_full[i]
     return a * np.cos(t) + b * np.sin(t) + c
 
 
 def dh(t):
-    i = _which_piece(t)
+    i = which_piece(t)
     a, b, c = pieces_full[i]
     return -a * np.sin(t) + b * np.cos(t)
 
