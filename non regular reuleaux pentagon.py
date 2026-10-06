@@ -2,12 +2,11 @@ import numpy as np
 from scipy import integrate
 
 # =================================================================
-# Newton 
+#                         Newton loop
 # =================================================================
 
 def integrate_piecewise(integrand, breakpoints, limit=200):
-    """Intègre `integrand` sur [breakpoints[0], breakpoints[-1]] en
-    respectant les points de rupture."""
+    """integrate `integrand` over [breakpoints[0], breakpoints[-1]] taking into account the five intervals"""
     total = 0.0
     for i in range(len(breakpoints) - 1):
         lo, hi = breakpoints[i], breakpoints[i + 1]
@@ -17,7 +16,7 @@ def integrate_piecewise(integrand, breakpoints, limit=200):
 
 
 def F_and_J(a, b, h_func, breakpoints):
-    """Calcule F(a,b)=(f1,f2) et la jacobienne J(a,b)."""
+    """Computation of F(a,b)=(f1,f2) and of the Jacobian J(a,b)"""
 
     def D(t):
         return h_func(t) - a * np.cos(t) - b * np.sin(t)
@@ -37,7 +36,7 @@ def F_and_J(a, b, h_func, breakpoints):
 
 def santalo_newton(h_func, breakpoints, s0=(0.0, 0.0),
                     tol=1e-13, maxiter=50, verbose=True):
-    """Newton pur sur F(a,b)=0."""
+    """Resolution of F(a,b)=0 via Newton"""
     a, b = s0
     history = []
 
@@ -59,7 +58,7 @@ def santalo_newton(h_func, breakpoints, s0=(0.0, 0.0),
 
 
 def body_area(h_func, dh_func, breakpoints):
-    """Aire de K :  A = 1/2 ∫ (h(t)^2 - h'(t)^2) dt."""
+    """Area of K :  A = 1/2 ∫ (h(t)^2 - h'(t)^2) dt"""
     def integrand(t):
         return h_func(t) ** 2 - dh_func(t) ** 2
     return 0.5 * integrate_piecewise(integrand, breakpoints)
@@ -77,17 +76,17 @@ pi = np.pi
 
 breakpoints_half = [0, t1, t2, t3, t4, pi]
 
-# coefficients (a_i, b_i, c_i) tels que h_i(t) = a_i*cos(t) + b_i*sin(t) + c_i
-a1, b1, c1 = 0.5,            0.0,            0.0   # h1 : sommet
-a2, b2, c2 = -0.468934446,  -0.247317689,    1.0   # h2 : arc (rayon 1)
-a3, b3, c3 = 0.2736012789,   0.4224887735,   0.0   # h3 : sommet
-a4, b4, c4 = 0.3170499522,  -0.5765668870,   1.0   # h4 : arc (rayon 1)
-a5, b5, c5 = -0.500000001,   0.0,            0.0   # h5 : sommet
+# coefficients (a_i, b_i, c_i) such that h_i(t) = a_i*cos(t) + b_i*sin(t) + c_i
+a1, b1, c1 = 0.5,            0.0,            0.0   
+a2, b2, c2 = -0.468934446,  -0.247317689,    1.0   
+a3, b3, c3 = 0.2736012789,   0.4224887735,   0.0  
+a4, b4, c4 = 0.3170499522,  -0.5765668870,   1.0   
+a5, b5, c5 = -0.500000001,   0.0,            0.0   
 
 pieces_half = [(a1, b1, c1), (a2, b2, c2), (a3, b3, c3),
                (a4, b4, c4), (a5, b5, c5)]
 
-# extension à [pi, 2pi] via h(t+pi) = 1 - h(t)  ->  meme (a,b), c -> 1-c
+# extension to [pi, 2pi] via h(t+pi) = 1 - h(t)  ->  same (a,b), c -> 1-c
 pieces_full = pieces_half + [(a, b, 1.0 - c) for (a, b, c) in pieces_half]
 breakpoints_full = breakpoints_half + [pi + x for x in breakpoints_half[1:]]
 
@@ -113,16 +112,11 @@ def dh(t):
 
 
 # =================================================================
-# Verification of width constancy and Santalo point computation
+#             Santalo point computation
 # =================================================================
 
-# Verification of width constancy
-print("Vérification h(t)+h(t+pi)=1 :")
-for t in np.linspace(0.05, pi - 0.05, 6):
-    print(f"  t={t:.3f}   h(t)+h(t+pi) = {h(t) + h(t + pi):.12f}")
-
 A = body_area(h, dh, breakpoints_full)
-print("\nAire (volume) de K :", A)
+print("Area of K :", A)
 
 s0 = (0.0, 0.0)
 (a_star, b_star), polar_area, hist = santalo_newton(
@@ -130,5 +124,5 @@ s0 = (0.0, 0.0)
 )
 
 print("\nPoint de Santaló  s* =", (a_star, b_star))
-print("Aire du polaire en s* :", polar_area)
-print("Produit A(K) * A(K°) :", A * polar_area)
+print("Area of K° at s* :", polar_area)
+print("Area product A(K) * A(K°) :", A * polar_area)
