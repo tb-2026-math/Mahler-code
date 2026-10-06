@@ -2,10 +2,10 @@ import numpy as np
 from scipy import integrate
 
 # =================================================================
-# I) Newton solver
+# Newton 
 # =================================================================
 
-def _integrate_piecewise(integrand, breakpoints, limit=200):
+def integrate_piecewise(integrand, breakpoints, limit=200):
     """Intègre `integrand` sur [breakpoints[0], breakpoints[-1]] en
     respectant les points de rupture."""
     total = 0.0
@@ -22,12 +22,12 @@ def F_and_J(a, b, h_func, breakpoints):
     def D(t):
         return h_func(t) - a * np.cos(t) - b * np.sin(t)
 
-    f1 = _integrate_piecewise(lambda t: np.cos(t) / D(t) ** 3, breakpoints)
-    f2 = _integrate_piecewise(lambda t: np.sin(t) / D(t) ** 3, breakpoints)
+    f1 = integrate_piecewise(lambda t: np.cos(t) / D(t) ** 3, breakpoints)
+    f2 = integrate_piecewise(lambda t: np.sin(t) / D(t) ** 3, breakpoints)
 
-    j11 = _integrate_piecewise(lambda t: 3 * np.cos(t) ** 2 / D(t) ** 4, breakpoints)
-    j12 = _integrate_piecewise(lambda t: 3 * np.cos(t) * np.sin(t) / D(t) ** 4, breakpoints)
-    j22 = _integrate_piecewise(lambda t: 3 * np.sin(t) ** 2 / D(t) ** 4, breakpoints)
+    j11 = integrate_piecewise(lambda t: 3 * np.cos(t) ** 2 / D(t) ** 4, breakpoints)
+    j12 = integrate_piecewise(lambda t: 3 * np.cos(t) * np.sin(t) / D(t) ** 4, breakpoints)
+    j22 = integrate_piecewise(lambda t: 3 * np.sin(t) ** 2 / D(t) ** 4, breakpoints)
 
     F = np.array([f1, f2])
     J = np.array([[j11, j12],
@@ -53,7 +53,7 @@ def santalo_newton(h_func, breakpoints, s0=(0.0, 0.0),
 
     def D(t):
         return h_func(t) - a * np.cos(t) - b * np.sin(t)
-    polar_area = 0.5 * _integrate_piecewise(lambda t: 1.0 / D(t) ** 2, breakpoints)
+    polar_area = 0.5 * integrate_piecewise(lambda t: 1.0 / D(t) ** 2, breakpoints)
 
     return (a, b), polar_area, history
 
@@ -62,11 +62,11 @@ def body_area(h_func, dh_func, breakpoints):
     """Aire de K :  A = 1/2 ∫ (h(t)^2 - h'(t)^2) dt."""
     def integrand(t):
         return h_func(t) ** 2 - dh_func(t) ** 2
-    return 0.5 * _integrate_piecewise(integrand, breakpoints)
+    return 0.5 * integrate_piecewise(integrand, breakpoints)
 
 
 # =================================================================
-# II)  Definition of h(t) - the support function (five pieces)  
+# Definition of the support function h(t) (five pieces over [0,\pi])  
 # =================================================================
 
 t1 = 0.2499109628
@@ -113,10 +113,10 @@ def dh(t):
 
 
 # =================================================================
-# PARTIE 3 : vérification + calculs
+# Verification of width constancy and Santalo point computation
 # =================================================================
 
-# sanity check : largeur constante = 1
+# Verification of width constancy
 print("Vérification h(t)+h(t+pi)=1 :")
 for t in np.linspace(0.05, pi - 0.05, 6):
     print(f"  t={t:.3f}   h(t)+h(t+pi) = {h(t) + h(t + pi):.12f}")
