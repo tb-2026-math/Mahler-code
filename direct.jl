@@ -9,7 +9,6 @@ function solve_mayer_free(; N::Int=500, eps_::Float64=1e-6,
     set_silent(model)
 
     # variables 
- 
     @variable(model, x1[0:N])
     @variable(model, x2[0:N])
     @variable(model, x3[0:N])
@@ -80,6 +79,7 @@ function solve_mayer_free(; N::Int=500, eps_::Float64=1e-6,
     # objective function 
     @objective(model, Min, (x3[N]+x2[0]) * x4[N])
 
+    # direct optimization via ipopt
     optimize!(model)
 
     println("Status: ", termination_status(model))
