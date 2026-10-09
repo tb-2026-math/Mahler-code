@@ -90,3 +90,6 @@ function solve_mayer_free(; N::Int=500, eps_::Float64=1e-6,
 
     return model, value.(x1), value.(x2), value.(x3), value.(x4), value.(u), value(x0), value(y0)
 end
+
+# execution
+model, x1, x2, x3, x4, u, x0, y0 = solve_mayer_free(N=500)
