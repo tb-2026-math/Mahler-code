@@ -66,6 +66,7 @@ def body_area(h_func, dh_func, breakpoints):
 
 # =================================================================
 # Definition of the support function h(t) (five pieces over [0,pi])  
+#      (maple export of switch times and support function)
 # =================================================================
 
 t1 = 0.2499109628
