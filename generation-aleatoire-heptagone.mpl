@@ -1,14 +1,36 @@
-
-
-
-
+##############################################
+Maple code generating random Reuleaux heptagon
+##############################################
 
 restart;
-sampleFloat := rand(0. .. 2); t1 := sampleFloat(); sampleFloat2 := rand(t1 .. 1.5); t2 := sampleFloat2(); sampleFloat3 := rand(t2 .. t2+.5); t3 := sampleFloat3(); sampleFloat4 := rand(t3 .. 3.1); t4 := sampleFloat4(); alpha := -sin(t2)+sin(t1)-sin(t4)+sin(t3); beta := 1+cos(t2)-cos(t1)+cos(t4)-cos(t3); t5 := -arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2)); t6 := arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2));
-t1 := .2499109628; t2 := .7339481128; t3 := 1.205338126; t4 := 1.408149043; t5 := 1.875328710; t6 := 2.642468712;
 
+sampleFloat := rand(0. .. 2); 
+t1 := sampleFloat(); 
+sampleFloat2 := rand(t1 .. 1.5); 
+t2 := sampleFloat2(); 
+sampleFloat3 := rand(t2 .. t2+.5); 
+t3 := sampleFloat3(); 
+sampleFloat4 := rand(t3 .. 3.1); 
+t4 := sampleFloat4(); 
+alpha := -sin(t2)+sin(t1)-sin(t4)+sin(t3); 
+beta := 1+cos(t2)-cos(t1)+cos(t4)-cos(t3); 
+
+t5 := -arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2)); 
+t6 := arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2));
+
+t1 := .2499109628; 
+t2 := .7339481128; 
+t3 := 1.205338126; 
+t4 := 1.408149043; 
+t5 := 1.875328710; 
+t6 := 2.642468712;
+
+### Constraints check 
 evalf(int(cos(t), t = t1 .. t2)+int(cos(t), t = t3 .. t4)+int(cos(t), t = t5 .. t6)); evalf(int(sin(t), t = t1 .. t2)+int(sin(t), t = t3 .. t4))+int(sin(t), t = t5 .. t6);
-h1 := .5*cos(t); dh1 := diff(h1, t); h2 := h1+(int(cos(s), s = t1 .. t))*sin(t)-(int(sin(s), s = t1 .. t))*cos(t); dh2 := diff(h2, t); h3 := h1+(int(cos(s), s = t1 .. t2))*sin(t)-(int(sin(s), s = t1 .. t2))*cos(t); dh3 := diff(h3, t); h4 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t))*cos(t); dh4 := diff(h4, t); h5 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t4))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t4))*cos(t); dh5 := diff(h5, t); h6 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t4)+int(cos(s), s = t5 .. t))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t4)+int(sin(s), s = t5 .. t))*cos(t); dh6 := diff(h6, t); h7 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t4)+int(cos(s), s = t5 .. t6))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t4)+int(sin(s), s = t5 .. t6))*cos(t); dh7 := diff(h7, t);
+h1 := .5*cos(t); dh1 := diff(h1, t); 
+h2 := h1+(int(cos(s), s = t1 .. t))*sin(t)-(int(sin(s), s = t1 .. t))*cos(t); 
+dh2 := diff(h2, t); 
+h3 := h1+(int(cos(s), s = t1 .. t2))*sin(t)-(int(sin(s), s = t1 .. t2))*cos(t); dh3 := diff(h3, t); h4 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t))*cos(t); dh4 := diff(h4, t); h5 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t4))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t4))*cos(t); dh5 := diff(h5, t); h6 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t4)+int(cos(s), s = t5 .. t))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t4)+int(sin(s), s = t5 .. t))*cos(t); dh6 := diff(h6, t); h7 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t4)+int(cos(s), s = t5 .. t6))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t4)+int(sin(s), s = t5 .. t6))*cos(t); dh7 := diff(h7, t);
 
 fsolve(int(exp(I*t)/(h1-a*cos(t)-b*sin(t))^3, t = 0 .. t1)+int(exp(I*t)/(h2-a*cos(t)-b*sin(t))^3, t = t1 .. t2)+int(exp(I*t)/(h3-a*cos(t)-b*sin(t))^3, t = t2 .. t3)+int(exp(I*t)/(h4-a*cos(t)-b*sin(t))^3, t = t3 .. t4)+int(exp(I*t)/(h5-a*cos(t)-b*sin(t))^3, t = t4 .. t5)+int(exp(I*t)/(h6-a*cos(t)-b*sin(t))^3, t = t5 .. t6)+int(exp(I*t)/(h7-a*cos(t)-b*sin(t))^3, t = t6 .. t7)+int(exp(I*t)/(h7-a*cos(t)-b*sin(t))^3, t = t7 .. Pi) = 0, {a, b});
 
