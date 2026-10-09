@@ -4,6 +4,11 @@ Maple code generating random Reuleaux heptagon
 
 restart;
 
+
+##################################################
+random switch times t1,t2,t3,t4
+##################################################
+
 sampleFloat := rand(0. .. 2); 
 t1 := sampleFloat(); 
 sampleFloat2 := rand(t1 .. 1.5); 
