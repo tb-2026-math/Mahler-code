@@ -10,6 +10,7 @@ random switch times t1,t2
 
 sampleFloat := rand(0. .. 2); 
 t1 := sampleFloat(); 
+
 sampleFloat2 := rand(t1 .. 3.1); 
 t2 := sampleFloat2(); 
 
@@ -18,6 +19,11 @@ beta := 1+cos(t2)-cos(t1);
 
 t3 := -arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2)); 
 t4 := arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2));
+
+t1 := 0.2499109628
+t2 := 0.7339481128
+t3 := 1.614258682
+t4 := 2.527072064
 
 ##################################################
 Constraint check to ensure closedness of the curve
