@@ -1,13 +1,81 @@
-
+##############################################
+Maple code generating random Reuleaux pentagon
+##############################################
 
 restart;
-sampleFloat := rand(0. .. 2); t1 := sampleFloat(); sampleFloat2 := rand(t1 .. 3.1); t2 := sampleFloat2(); alpha := -sin(t2)+sin(t1); beta := 1+cos(t2)-cos(t1); t3 := -arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2)); t4 := arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2));
-evalf(int(cos(t), t = t1 .. t2)+int(cos(t), t = t3 .. t4)); evalf(int(sin(t), t = t1 .. t2)+int(sin(t), t = t3 .. t4));
-h1 := .5*cos(t); dh1 := diff(h1, t); h2 := h1+(int(cos(s), s = t1 .. t))*sin(t)-(int(sin(s), s = t1 .. t))*cos(t); dh2 := diff(h2, t); h3 := h1+(int(cos(s), s = t1 .. t2))*sin(t)-(int(sin(s), s = t1 .. t2))*cos(t); dh3 := diff(h3, t); h4 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t))*cos(t); dh4 := diff(h4, t); h5 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t4))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t4))*cos(t); dh5 := diff(h5, t);
-g1 := plot([h1*cos(t)-dh1*sin(t), h1*sin(t)+dh1*cos(t), t = 0 .. t1]); g11 := plot([h1*cos(t)-dh1*sin(t)-cos(t), h1*sin(t)+dh1*cos(t)-sin(t), t = 0 .. t1]); g2 := plot([h2*cos(t)-dh2*sin(t), h2*sin(t)+dh2*cos(t), t = t1 .. t2]); g21 := plot([h2*cos(t)-dh2*sin(t)-cos(t), h2*sin(t)+dh2*cos(t)-sin(t), t = t1 .. t2]); g3 := plot([h3*cos(t)-dh3*sin(t), h3*sin(t)+dh3*cos(t), t = t2 .. t3]); g31 := plot([h3*cos(t)-dh3*sin(t)-cos(t), h3*sin(t)+dh3*cos(t)-sin(t), t = t2 .. t3]); g4 := plot([h4*cos(t)-dh4*sin(t), h4*sin(t)+dh4*cos(t), t = t3 .. t4]); g41 := plot([h4*cos(t)-dh4*sin(t)-cos(t), h4*sin(t)+dh4*cos(t)-sin(t), t = t3 .. t4]); g5 := plot([h5*cos(t)-dh5*sin(t), h5*sin(t)+dh5*cos(t), t = t4 .. Pi]); g51 := plot([h5*cos(t)-dh5*sin(t)-cos(t), h5*sin(t)+dh5*cos(t)-sin(t), t = t4 .. Pi]);
+
+##################################################
+random switch times t1,t2
+##################################################
+
+sampleFloat := rand(0. .. 2); 
+t1 := sampleFloat(); 
+sampleFloat2 := rand(t1 .. 3.1); 
+t2 := sampleFloat2(); 
+
+alpha := -sin(t2)+sin(t1); 
+beta := 1+cos(t2)-cos(t1); 
+
+t3 := -arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2)); 
+t4 := arcsin((1/2)*sqrt(alpha^2+beta^2))+arccos(alpha/sqrt(alpha^2+beta^2));
+
+##################################################
+Constraint check to ensure closedness of the curve
+##################################################
+
+evalf(int(cos(t), t = t1 .. t2)+int(cos(t), t = t3 .. t4)); 
+evalf(int(sin(t), t = t1 .. t2)+int(sin(t), t = t3 .. t4));
+
+##############################################################################
+Support function definition and plot of the Reuleaux heptagon and of its polar
+
+                    6 pieces for h(t) over [0,pi]
+##############################################################################
+
+h1 := .5*cos(t); 
+dh1 := diff(h1, t); 
+
+h2 := h1+(int(cos(s), s = t1 .. t))*sin(t)-(int(sin(s), s = t1 .. t))*cos(t); 
+dh2 := diff(h2, t); 
+
+h3 := h1+(int(cos(s), s = t1 .. t2))*sin(t)-(int(sin(s), s = t1 .. t2))*cos(t); 
+dh3 := diff(h3, t); 
+
+h4 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t))*cos(t); 
+dh4 := diff(h4, t); 
+
+h5 := h1+(int(cos(s), s = t1 .. t2)+int(cos(s), s = t3 .. t4))*sin(t)-(int(sin(s), s = t1 .. t2)+int(sin(s), s = t3 .. t4))*cos(t); 
+dh5 := diff(h5, t);
+
+######### Plot of the pentagon (10 pieces) #########
+
+g1 := plot([h1*cos(t)-dh1*sin(t), h1*sin(t)+dh1*cos(t), t = 0 .. t1]); 
+g11 := plot([h1*cos(t)-dh1*sin(t)-cos(t), h1*sin(t)+dh1*cos(t)-sin(t), t = 0 .. t1]);     ### duplicate over [pi,2pi]
+g2 := plot([h2*cos(t)-dh2*sin(t), h2*sin(t)+dh2*cos(t), t = t1 .. t2]); 
+g21 := plot([h2*cos(t)-dh2*sin(t)-cos(t), h2*sin(t)+dh2*cos(t)-sin(t), t = t1 .. t2]);    ### duplicate over [pi,2pi]
+g3 := plot([h3*cos(t)-dh3*sin(t), h3*sin(t)+dh3*cos(t), t = t2 .. t3]); 
+g31 := plot([h3*cos(t)-dh3*sin(t)-cos(t), h3*sin(t)+dh3*cos(t)-sin(t), t = t2 .. t3]);    ### duplicate over [pi,2pi]
+g4 := plot([h4*cos(t)-dh4*sin(t), h4*sin(t)+dh4*cos(t), t = t3 .. t4]); 
+g41 := plot([h4*cos(t)-dh4*sin(t)-cos(t), h4*sin(t)+dh4*cos(t)-sin(t), t = t3 .. t4]);    ### duplicate over [pi,2pi]
+g5 := plot([h5*cos(t)-dh5*sin(t), h5*sin(t)+dh5*cos(t), t = t4 .. Pi]); 
+g51 := plot([h5*cos(t)-dh5*sin(t)-cos(t), h5*sin(t)+dh5*cos(t)-sin(t), t = t4 .. Pi]);    ### duplicate over [pi,2pi]
+
 plots[display]({g1, g11, g2, g21, g3, g31, g4, g41, g5, g51});
 
-gp1 := plot([cos(t)/h1, sin(t)/h1, t = 0 .. t1]); gp11 := plot([cos(t)/(h1-1), sin(t)/(h1-1), t = 0 .. t1]); gp2 := plot([cos(t)/h2, sin(t)/h2, t = t1 .. t2]); gp21 := plot([cos(t)/(h2-1), sin(t)/(h2-1), t = t1 .. t2]); gp3 := plot([cos(t)/h3, sin(t)/h3, t = t2 .. t3]); gp31 := plot([cos(t)/(h3-1), sin(t)/(h3-1), t = t2 .. t3]); gp4 := plot([cos(t)/h4, sin(t)/h4, t = t3 .. t4]); gp41 := plot([cos(t)/(h4-1), sin(t)/(h4-1), t = t3 .. t4]); gp5 := plot([cos(t)/h5, sin(t)/h5, t = t4 .. Pi]); gp51 := plot([cos(t)/(h5-1), sin(t)/(h5-1), t = t4 .. Pi]);
+######### Plot of the polar set (10 pieces) #########
+
+gp1 := plot([cos(t)/h1, sin(t)/h1, t = 0 .. t1]); 
+gp11 := plot([cos(t)/(h1-1), sin(t)/(h1-1), t = 0 .. t1]); 
+gp2 := plot([cos(t)/h2, sin(t)/h2, t = t1 .. t2]); 
+gp21 := plot([cos(t)/(h2-1), sin(t)/(h2-1), t = t1 .. t2]); 
+gp3 := plot([cos(t)/h3, sin(t)/h3, t = t2 .. t3]); 
+gp31 := plot([cos(t)/(h3-1), sin(t)/(h3-1), t = t2 .. t3]); 
+gp4 := plot([cos(t)/h4, sin(t)/h4, t = t3 .. t4]); 
+gp41 := plot([cos(t)/(h4-1), sin(t)/(h4-1), t = t3 .. t4]); 
+gp5 := plot([cos(t)/h5, sin(t)/h5, t = t4 .. Pi]); 
+gp51 := plot([cos(t)/(h5-1), sin(t)/(h5-1), t = t4 .. Pi]);
 plots[display]({gp1, gp11, gp2, gp21, gp3, gp31, gp4, gp41, gp5, gp51});
+
+## Numerical attempt to compute the Santalo point via maple (see also the Newton code in python)
 tmp1 := int(cos(t)/(h1-a*cos(t)-b*sin(t))^3, t = 0 .. t1)+int(cos(t)/(h2-a*cos(t)-b*sin(t))^3, t = t1 .. t2)+int(cos(t)/(h3-a*cos(t)-b*sin(t))^3, t = t2 .. t3)+int(cos(t)/(h4-a*cos(t)-b*sin(t))^3, t = t3 .. t4)+int(cos(t)/(h5-a*cos(t)-b*sin(t))^3, t = t4 .. Pi);
 
