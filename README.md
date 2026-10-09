@@ -1,4 +1,4 @@
-Code for the paper "On the minimization of the Mahler area among planar convex bodies of constant width" : 
+**Code for the paper "On the minimization of the Mahler area among planar convex bodies of constant width"**
 
 1. Direct numerical optimisation method to solve the OCP (3.10) in Julia ; 
 
