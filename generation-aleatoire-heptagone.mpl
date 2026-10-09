@@ -86,19 +86,19 @@ plots[display]({g1, g11, g2, g21, g3, g31, g4, g41, g5, g51, g6, g61, g7, g71});
 ######### Plot of the polar set (14 pieces) #########
 
 gp1 := plot([cos(t)/h1, sin(t)/h1, t = 0 .. t1]); 
-gp11 := plot([cos(t)/(h1-1), sin(t)/(h1-1), t = 0 .. t1]); 
+gp11 := plot([cos(t)/(h1-1), sin(t)/(h1-1), t = 0 .. t1]);            ### duplicate over [pi,2pi]
 gp2 := plot([cos(t)/h2, sin(t)/h2, t = t1 .. t2]); 
-gp21 := plot([cos(t)/(h2-1), sin(t)/(h2-1), t = t1 .. t2]); 
+gp21 := plot([cos(t)/(h2-1), sin(t)/(h2-1), t = t1 .. t2]);           ### duplicate over [pi,2pi]
 gp3 := plot([cos(t)/h3, sin(t)/h3, t = t2 .. t3]); 
-gp31 := plot([cos(t)/(h3-1), sin(t)/(h3-1), t = t2 .. t3]); 
+gp31 := plot([cos(t)/(h3-1), sin(t)/(h3-1), t = t2 .. t3]);           ### duplicate over [pi,2pi]
 gp4 := plot([cos(t)/h4, sin(t)/h4, t = t3 .. t4]); 
-gp41 := plot([cos(t)/(h4-1), sin(t)/(h4-1), t = t3 .. t4]); 
+gp41 := plot([cos(t)/(h4-1), sin(t)/(h4-1), t = t3 .. t4]);           ### duplicate over [pi,2pi]
 gp5 := plot([cos(t)/h5, sin(t)/h5, t = t4 .. t5]); 
-gp51 := plot([cos(t)/(h5-1), sin(t)/(h5-1), t = t4 .. t5]); 
+gp51 := plot([cos(t)/(h5-1), sin(t)/(h5-1), t = t4 .. t5]);           ### duplicate over [pi,2pi]
 gp6 := plot([cos(t)/h6, sin(t)/h6, t = t5 .. t6]); 
-gp61 := plot([cos(t)/(h6-1), sin(t)/(h6-1), t = t5 .. t6]); 
+gp61 := plot([cos(t)/(h6-1), sin(t)/(h6-1), t = t5 .. t6]);           ### duplicate over [pi,2pi]
 gp7 := plot([cos(t)/h7, sin(t)/h7, t = t6 .. Pi]); 
-gp71 := plot([cos(t)/(h7-1), sin(t)/(h7-1), t = t6 .. Pi]);
+gp71 := plot([cos(t)/(h7-1), sin(t)/(h7-1), t = t6 .. Pi]);          ### duplicate over [pi,2pi]
 
 plots[display]({gp1, gp11, gp2, gp21, gp3, gp31, gp4, gp41, gp5, gp51, gp6, gp61, gp7, gp71});
 
