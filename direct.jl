@@ -1,3 +1,7 @@
+import Pkg; Pkg.add("JuMP")
+Pkg.add("Ipopt")
+Pkg.add("LaTeXStrings")
+
 using JuMP, Ipopt
  
 function solve_mayer_free(; N::Int=500, eps_::Float64=1e-6,
